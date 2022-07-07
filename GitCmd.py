@@ -1,5 +1,4 @@
 import subprocess
-from typing import Text
 
 class GitCmd:
     GIT_CMD_LIST = []
@@ -17,11 +16,13 @@ class GitCmd:
     def Clear(self) -> None:
         self.GIT_CMD_LIST.clear()
 
-    def Execute(self , executer : function) -> None:
+    def Execute(self ,Executer) -> None:
         git_path = ["git" , "-C" , self.path]
+        self.GIT_CMD_LIST.append(["pull"])
+        self.GIT_CMD_LIST.append(["push"])
         for command in self.GIT_CMD_LIST:
             cmd = git_path + command
             result = subprocess.run(cmd ,shell = True , capture_output=True , text = True)
-            executer(result.stdout)
-            executer(result.stderr)
+            Executer(result.stdout)
+            Executer(result.stderr)
         self.Clear()
