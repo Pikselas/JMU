@@ -1,9 +1,9 @@
-from cProfile import label
 from tkinter import END, Tk , Button , Text , Entry , Label
 from tkinter.filedialog import askopenfilename
 
 class UI:
     ModelAdderFunc = None
+    CatagoryAdderFunc = None
     __Console = None
 
     def __init__(self):
@@ -33,7 +33,17 @@ class UI:
         Label(panel , text = "Links (enter to seperate)").pack()
         links = Text(panel , width = 15 , height = 3)
         links.pack()
-        Button(panel , text = "ADD" , width = 15 , height = 2 , command = lambda : self.ModelAdderFunc(name.get() , desc.get() , links.get("1.0" , "end-1c").split('\n') , askopenfilename())).pack()
+        Button(panel , text = "ADD" , width = 15 , height = 2 , command = lambda : [self.ModelAdderFunc(name.get() , desc.get() , links.get("1.0" , "end-1c").split('\n') , askopenfilename()) , panel.destroy()]).pack()
         panel.mainloop()
-
+    
+    def __CatagoryAddPanel(self):
+        panel = Tk()
+        panel.geometry("300x100")
+        panel.title("ADD NEW CATAGORY")
+        Label( panel , text = "Catagory Name").pack()
+        catName = Entry(panel)
+        catName.pack()
+        Button(panel , text = "ADD" , width = 15, height = 2 ,  command = lambda : [self.CatagoryAdderFunc(catName.get()) , panel.destroy()])
+        panel.mainloop()
+    
 UI()
