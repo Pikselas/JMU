@@ -20,9 +20,10 @@ class GitCmd:
         git_path = ["git" , "-C" , self.path]
         self.__GIT_CMD_LIST.append(["pull"])
         self.__GIT_CMD_LIST.append(["push"])
-        for command in self.GIT_CMD_LIST:
+        for command in self.__GIT_CMD_LIST:
             cmd = git_path + command
             result = subprocess.run(cmd ,shell = True , capture_output=True , text = True)
             Executer(result.stdout)
             Executer(result.stderr)
+        Executer("**APPLIED CURRENT CHANGES**\n--COMPLETED--")
         self.Clear()
