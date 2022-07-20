@@ -64,7 +64,7 @@ class Modelsystem:
                         catJson["models"].append(model)
                 catJson["models"].sort()
             with open(self.__path + '/' + catagoryPath , "w") as cat:
-                cat.write(json.dumps(catJson))
+                cat.write(json.dumps(catJson , indent=4))
             self.GitHandler.CommitFile(catagoryPath,"UPDATED MODELS")
             return True
         return False
