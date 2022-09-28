@@ -2,7 +2,7 @@ from ModelSystem import *
 from UI import *
 from threading import Thread
 
-msys = Modelsystem("D:/CODINGS/HTML,JAVASCRIPT,PHP/pikselas.github.io")
+msys = Modelsystem("../jellymilk")
 
 def ModelAdder(name : str, desc : str , links : list , profile_pic : str , Output):
     if not msys.AddNewModel(name , desc , links , profile_pic):

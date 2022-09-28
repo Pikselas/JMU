@@ -7,10 +7,10 @@ from shutil import copyfile
 class Modelsystem:
     
     __path = None
-    __modelsDirectory = "jellymilk/data/models"
-    __catagoriesDirectory = "jellymilk/data/catagories"
-    __profilePicDirectory = "jellymilk/profile_pics"
-    __catagoriesPath = "jellymilk/data/catagories.json"
+    __modelsDirectory = "data/models"
+    __catagoriesDirectory = "data/catagories"
+    __profilePicDirectory = "profile_pics"
+    __catagoriesPath = "data/catagories.json"
 
     def __init__(self , path : str) -> None:
         self.__path = path
@@ -32,7 +32,7 @@ class Modelsystem:
             self.GitHandler.AddNewFile(modelPicPath)
             with open(finalPath , "w") as model:
                 model.write(json.dumps(ModelJson , indent=4))
-            self.GitHandler.AddNewFile(filePath)
+            self.GitHandler.AddNewFile(filePath,"NEW MODEL ADDED:" + name)
             return True
         return False
 
@@ -49,7 +49,7 @@ class Modelsystem:
                 catJson["catagories"].sort()
             with open(self.__path + '/' + self.__catagoriesPath , "w") as cat:
                 cat.write(json.dumps(catJson , indent=4))
-            self.GitHandler.CommitFile(self.__catagoriesPath , "NEW CATAGORY ADDED")
+            self.GitHandler.CommitFile(self.__catagoriesPath , "NEW CATAGORY ADDED:" + catagory)
             return True
         return False
 
@@ -65,7 +65,7 @@ class Modelsystem:
                 catJson["models"].sort()
             with open(self.__path + '/' + catagoryPath , "w") as cat:
                 cat.write(json.dumps(catJson , indent=4))
-            self.GitHandler.CommitFile(catagoryPath,"UPDATED MODELS")
+            self.GitHandler.CommitFile(catagoryPath,"UPDATED CATAGORY:" + catagory)
             return True
         return False
     
