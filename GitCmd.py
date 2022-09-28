@@ -9,9 +9,9 @@ class GitCmd:
     def CommitFile(self , filename : str , message : str) -> None:
         self.__GIT_CMD_LIST.append(["commit" , filename , "-m" , message])
     
-    def AddNewFile(self , filename : str) ->None:
+    def AddNewFile(self , filename : str , message = "ADDED NEW FILE") ->None:
         self.__GIT_CMD_LIST.append(["add" , filename])
-        self.CommitFile(filename , "ADDED FILE :" + filename)
+        self.CommitFile(filename , message)
 
     def Clear(self) -> None:
         self.__GIT_CMD_LIST.clear()
