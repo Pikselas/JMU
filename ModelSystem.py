@@ -8,9 +8,9 @@ class Modelsystem:
     
     __path = None
     __modelsDirectory = "data/models"
-    __catagoriesDirectory = "data/catagories"
+    __categoriesDirectory = "data/categories"
     __profilePicDirectory = "profile_pics"
-    __catagoriesPath = "data/catagories.json"
+    __categoriesPath = "data/categories.json"
 
     def __init__(self , path : str) -> None:
         self.__path = path
@@ -20,7 +20,7 @@ class Modelsystem:
         return [Model.replace(".json" , '') for Model in listdir(self.__path + '/' + self.__modelsDirectory)]
 
     def GetCatagories(self) -> list:
-        return [Catagory.replace(".json" , '') for Catagory in listdir(self.__path + '/' + self.__catagoriesDirectory)]
+        return [Category.replace(".json" , '') for Category in listdir(self.__path + '/' + self.__categoriesDirectory)]
 
     def AddNewModel(self , name : str, desc : str , links : list , profile_pic : str) -> bool:
         filePath = self.__modelsDirectory + '/' + name + '.json'
@@ -36,36 +36,36 @@ class Modelsystem:
             return True
         return False
 
-    def AddNewCatagory(self , catagory : str) -> bool:
-        catagoryPath = self.__catagoriesDirectory + '/' + catagory + '.json'
-        if not op.isfile(self.__path + '/' + catagoryPath) :
-            with open(self.__path + '/' + catagoryPath , "w") as cat:
+    def AddNewCategory(self , category : str) -> bool:
+        categoryPath = self.__categoriesDirectory + '/' + category + '.json'
+        if not op.isfile(self.__path + '/' + categoryPath) :
+            with open(self.__path + '/' + categoryPath , "w") as cat:
                 cat.write('{"models" : []}')
-            self.GitHandler.AddNewFile(catagoryPath)
+            self.GitHandler.AddNewFile(categoryPath)
             catJson = {}
-            with open(self.__path + '/' + self.__catagoriesPath , "r") as cat:
+            with open(self.__path + '/' + self.__categoriesPath , "r") as cat:
                 catJson = json.loads(cat.read())
-                catJson["catagories"].append(catagory)
-                catJson["catagories"].sort()
-            with open(self.__path + '/' + self.__catagoriesPath , "w") as cat:
+                catJson["categories"].append(category)
+                catJson["categories"].sort()
+            with open(self.__path + '/' + self.__categoriesPath , "w") as cat:
                 cat.write(json.dumps(catJson , indent=4))
-            self.GitHandler.CommitFile(self.__catagoriesPath , "NEW CATAGORY ADDED:" + catagory)
+            self.GitHandler.CommitFile(self.__categoriesPath , "NEW CATEGORY ADDED:" + category)
             return True
         return False
 
-    def UpdateCatagory(self , catagory : str , models : list) -> bool:
-        catagoryPath = self.__catagoriesDirectory + '/' + catagory + '.json'
-        if op.isfile(self.__path + '/' + catagoryPath) : 
+    def UpdateCategory(self , category : str , models : list) -> bool:
+        categoryPath = self.__categoriesDirectory + '/' + category + '.json'
+        if op.isfile(self.__path + '/' + categoryPath) : 
             catJson = {}
-            with open(self.__path + '/' + catagoryPath , "r") as cat:
+            with open(self.__path + '/' + categoryPath , "r") as cat:
                 catJson = json.loads(cat.read())
                 for model in models:
                     if model not in catJson["models"]:
                         catJson["models"].append(model)
                 catJson["models"].sort()
-            with open(self.__path + '/' + catagoryPath , "w") as cat:
+            with open(self.__path + '/' + categoryPath , "w") as cat:
                 cat.write(json.dumps(catJson , indent=4))
-            self.GitHandler.CommitFile(catagoryPath,"UPDATED CATAGORY:" + catagory)
+            self.GitHandler.CommitFile(categoryPath,"UPDATED CATEGORY:" + category)
             return True
         return False
     
